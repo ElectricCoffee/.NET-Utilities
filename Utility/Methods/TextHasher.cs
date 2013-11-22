@@ -24,7 +24,12 @@ namespace Utility.Methods
             TYPE_MANAGED = "Managed",
             TYPE_CSP = "CryptoServiceProvider";
 
-        public static string GenerateHash(this string input, HashType hash, HashSubType subType = HashSubType.Normal)
+        public static string GenerateHash(this string input, HashType hash)
+        {
+            return input.GenerateHash(hash, HashSubType.Normal);
+        }
+
+        public static string GenerateHash(this string input, HashType hash, HashSubType subType)
         {
             Func<HashAlgorithm, string> hashFunction = alg => HashingHelper(input, alg);
 
