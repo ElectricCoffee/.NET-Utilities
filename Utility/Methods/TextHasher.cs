@@ -24,11 +24,24 @@ namespace Utility.Methods
             TYPE_MANAGED = "Managed",
             TYPE_CSP = "CryptoServiceProvider";
 
+        /// <summary>
+        /// Generates a hash of the specified hash type
+        /// </summary>
+        /// <param name="input">Any string</param>
+        /// <param name="hash">The enum "HashType"</param>
+        /// <returns>A string of the generated hash-code in hex-code</returns>
         public static string GenerateHash(this string input, HashType hash)
         {
             return input.GenerateHash(hash, HashSubType.Normal);
         }
 
+        /// <summary>
+        /// Generates a hash of the specified hash type
+        /// </summary>
+        /// <param name="input">Any string</param>
+        /// <param name="hash">The enum "HashType"</param>
+        /// <param name="subType">The sub-type of the hashing algorithm i.e. Cng, Managed, etc.</param>
+        /// <returns>A string of the generated hash-code in hex-code</returns>
         public static string GenerateHash(this string input, HashType hash, HashSubType subType)
         {
             Func<HashAlgorithm, string> hashFunction = alg => HashingHelper(input, alg);
@@ -47,6 +60,13 @@ namespace Utility.Methods
             }
         }
 
+        /// <summary>
+        /// Takes care of actually computing the hashing by using the specified algorithm along with the text
+        /// to create a string based on the byte-array created by the ComputeHash method
+        /// </summary>
+        /// <param name="text">The string you want to hash</param>
+        /// <param name="algorithm">The hashing algorithm that's used to generate the checksum</param>
+        /// <returns>The chekcsum based on the input</returns>
         private static string HashingHelper(string text, HashAlgorithm algorithm)
         {
             Func<string, byte[]> getHash = input => algorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
@@ -57,6 +77,11 @@ namespace Utility.Methods
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Generates the default types of the specified hashing algorithms
+        /// </summary>
+        /// <param name="hash">Enumerator to switch on</param>
+        /// <returns>The hashing algorithm based on the enum</returns>
         private static HashAlgorithm NormalHashes(HashType hash)
         {
             switch (hash)
@@ -75,6 +100,11 @@ namespace Utility.Methods
             }
         }
 
+        /// <summary>
+        /// Generates a hash using Cng
+        /// </summary>
+        /// <param name="hash">Enumerator to switch on</param>
+        /// <returns>The hashing algorithm based on the enum</returns>
         private static HashAlgorithm CngHashes(HashType hash)
         {
             switch (hash)
@@ -93,6 +123,12 @@ namespace Utility.Methods
             }
         }
 
+        /// <summary>
+        /// Generates a managed hash
+        /// Note: MD5 isn't available
+        /// </summary>
+        /// <param name="hash">Enumerator to switch on</param>
+        /// <returns>The hashing algorithm based on the enum</returns>
         private static HashAlgorithm ManagedHashes(HashType hash)
         {
             switch (hash)
@@ -110,6 +146,11 @@ namespace Utility.Methods
             }
         }
 
+        /// <summary>
+        /// Generates a hash using the CryptoServiceProvider
+        /// </summary>
+        /// <param name="hash">Enumerator to switch on</param>
+        /// <returns>The hashing algorithm based on the enum</returns>
         private static HashAlgorithm CSPHashes(HashType hash)
         {
             switch (hash)
