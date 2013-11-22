@@ -10,6 +10,9 @@ namespace Utility.Methods
     public enum HashType { MD5, SHA512, SHA256, SHA384, SHA1 }
     public enum HashSubType { Normal, Cng, Managed, CryptoServiceProvider }
 
+    /// <summary>
+    /// Serves to remove boilerplate, by generating a checksum directly on the string.
+    /// </summary>
     public static class TextHasher
     {
         private const string BASE = "System.Security.Cryptography.";

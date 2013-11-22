@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,7 +42,9 @@
   <ItemGroup>
     <Compile Include="Classes\Option.cs" />
     <Compile Include="Classes\ThreadWithHandler.cs" />
+    <Compile Include="Methods\JsonConverter.cs" />
     <Compile Include="Methods\TcpUtility.cs" />
+    <Compile Include="Methods\TextHasher.cs" />
     <Compile Include="Operators\NullConvenience.cs" />
     <Compile Include="Operators\Pipe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
