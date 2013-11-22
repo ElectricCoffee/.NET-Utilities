@@ -15,14 +15,14 @@ namespace Utility.Methods
         private const string BASE = "System.Security.Cryptography.";
 
         public const string
-            BASE_MD5 = BASE + "MD5",
-            BASE_SHA1 = BASE + "SHA1",
-            BASE_SHA256 = BASE + "SHA256",
-            BASE_SHA384 = BASE + "SHA384",
-            BASE_SHA512 = BASE + "SHA512",
-            TYPE_CNG = "Cng",
+            BASE_MD5     = BASE + "MD5",
+            BASE_SHA1    = BASE + "SHA1",
+            BASE_SHA256  = BASE + "SHA256",
+            BASE_SHA384  = BASE + "SHA384",
+            BASE_SHA512  = BASE + "SHA512",
+            TYPE_CNG     = "Cng",
             TYPE_MANAGED = "Managed",
-            TYPE_CSP = "CryptoServiceProvider";
+            TYPE_CSP     = "CryptoServiceProvider";
 
         /// <summary>
         /// Generates a hash of the specified hash type
