@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Option.cs" />
+    <Compile Include="Methods\ServerCommunicator.cs" />
     <Compile Include="Classes\ThreadWithHandler.cs" />
     <Compile Include="Methods\JsonConverter.cs" />
     <Compile Include="Methods\TcpUtility.cs" />
