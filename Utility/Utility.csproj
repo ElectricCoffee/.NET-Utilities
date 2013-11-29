@@ -43,7 +43,7 @@
     <Compile Include="Classes\Option.cs" />
     <Compile Include="Methods\ServerCommunicator.cs" />
     <Compile Include="Classes\ThreadWithHandler.cs" />
-    <Compile Include="Methods\JsonConverter.cs" />
+    <Compile Include="Methods\DataConverter.cs" />
     <Compile Include="Methods\TcpUtility.cs" />
     <Compile Include="Methods\TextHasher.cs" />
     <Compile Include="Operators\NullConvenience.cs" />
