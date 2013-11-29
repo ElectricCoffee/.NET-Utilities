@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
+using System.Web.Script.Serialization; // add a reference to `System.Web.Extensions` for this to work
 using System.Xml;
 using System.Xml.Serialization;
 
