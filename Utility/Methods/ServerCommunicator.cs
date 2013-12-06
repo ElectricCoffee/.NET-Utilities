@@ -41,6 +41,18 @@ namespace Utility.Methods
         }
 
         /// <summary>
+        /// Gets JSON object from the source specified by the URI string, and converts it directly to an object of the given class
+        /// </summary>
+        /// <param name="inputUri">The URI of the source</param>
+        /// <returns></returns>
+        public static T Get<T>(this string inputUri)
+        {
+            string result = "";
+            ResponseHelper(inputUri, (client, uri) => result = client.DownloadString(uri));
+            return new JavaScriptSerializer().Deserialize<T>(result);
+        }
+
+        /// <summary>
         /// Gets data from the source specified by the URI string asynchronously
         /// </summary>
         /// <param name="inputUri">The URI of the source</param>
@@ -153,6 +165,18 @@ namespace Utility.Methods
             string result = "";
             ResponseHelper(client => result = client.DownloadString(inputUri));
             return result;
+        }
+
+        /// <summary>
+        /// Gets JSON object from the source specified by the URI string, and converts it directly to an object of the given class
+        /// </summary>
+        /// <param name="inputUri">The URI of the source</param>
+        /// <returns></returns>
+        public static T Get<T>(this Uri inputUri)
+        {
+            string result = "";
+            ResponseHelper(client => result = client.DownloadString(inputUri));
+            return new JavaScriptSerializer().Deserialize<T>(result);
         }
 
         /// <summary>
