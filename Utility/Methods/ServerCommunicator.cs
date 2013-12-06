@@ -88,24 +88,24 @@ namespace Utility.Methods
         }
 
         /// <summary>
-        /// Posts data to a receiver specified by the input URI
+        /// Posts data to a receiver specified by the input URI, the data is automatically turned into a Json object
         /// </summary>
         /// <typeparam name="T">Any object type</typeparam>
         /// <param name="inputUri">The URI of the receiver</param>
         /// <param name="obj">The object to be sent to the receiver as json</param>
-        public static void PostAsJson<T>(this string inputUri, T obj)
+        public static void Post<T>(this string inputUri, T obj)
         {
             var json = new JavaScriptSerializer().Serialize(obj);
             inputUri.Post(json);
         }
 
         /// <summary>
-        /// Posts data to a receiver specified by the input URI asynchronously
+        /// Posts data to a receiver specified by the input URI asynchronously, the data is automatically turned into a Json object
         /// </summary>
         /// <typeparam name="T">Any object type</typeparam>
         /// <param name="inputUri">The URI of the receiver</param>
         /// <param name="obj">The object to be sent to the receiver as json</param>
-        public static void PostAsJsonAsync<T>(this string inputUri, T obj)
+        public static void PostAsync<T>(this string inputUri, T obj)
         {
             var json = new JavaScriptSerializer().Serialize(obj);
             inputUri.PostAsync(json);
@@ -202,24 +202,24 @@ namespace Utility.Methods
         }
 
         /// <summary>
-        /// Posts data to a receiver specified by the input URI
+        /// Posts data to a receiver specified by the input URI, the data is automatically turned into a Json object
         /// </summary>
         /// <typeparam name="T">Any object type</typeparam>
         /// <param name="inputUri">The URI of the receiver</param>
         /// <param name="obj">The object to be sent to the receiver as json</param>
-        public static void PostAsJson<T>(this Uri inputUri, T obj)
+        public static void Post<T>(this Uri inputUri, T obj)
         {
             var json = new JavaScriptSerializer().Serialize(obj);
             inputUri.Post(json);
         }
 
         /// <summary>
-        /// Posts data to a receiver specified by the input URI asynchronously
+        /// Posts data to a receiver specified by the input URI asynchronously, the data is automatically turned into a Json object
         /// </summary>
         /// <typeparam name="T">Any object type</typeparam>
         /// <param name="inputUri">The URI of the receiver</param>
         /// <param name="obj">The object to be sent to the receiver as json</param>
-        public static void PostAsJsonAsync<T>(this Uri inputUri, T obj)
+        public static void Post<T>(this Uri inputUri, T obj)
         {
             var json = new JavaScriptSerializer().Serialize(obj);
             inputUri.PostAsync(json);
