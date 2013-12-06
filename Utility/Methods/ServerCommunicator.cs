@@ -10,14 +10,17 @@ namespace Utility.Methods
 {
     public static class ServerCommunicator
     {
-        private const string APPLICATION_JSON = "application/json";
+        private const string 
+            APPLICATION_JSON = "application/json",
+            REQUEST_POST     = "POST",
+            REQUEST_DELETE   = "DELETE";
 
         /// <summary>
         /// A Helper method to remove boilerplate code, it does all the actual conversion.
         /// </summary>
         /// <param name="inputUri">A string representing the uri of whatever you want to get data from</param>
         /// <param name="clientfunction">An higher-order function/delegate that allows us to specify the behavior of the method</param>
-        private static void GetHelper(string inputUri, Action<WebClient, Uri> clientfunction)
+        private static void ResponseHelper(string inputUri, Action<WebClient, Uri> clientfunction)
         {
             var client = new WebClient();
             client.Headers[HttpResponseHeader.ContentType] = APPLICATION_JSON;
@@ -33,7 +36,7 @@ namespace Utility.Methods
         public static string Get(this string inputUri)
         {
             string result = "";
-            GetHelper(inputUri, (client, uri) => result = client.DownloadString(uri));
+            ResponseHelper(inputUri, (client, uri) => result = client.DownloadString(uri));
             return result;
         }
 
@@ -44,7 +47,7 @@ namespace Utility.Methods
         /// <param name="downloadStringCompleted">The event hander the downloaded string will be sent to</param>
         public static void GetAsync(this string inputUri, DownloadStringCompletedEventHandler downloadStringCompleted)
         {
-            GetHelper(inputUri, (client, uri) =>
+            ResponseHelper(inputUri, (client, uri) =>
             {
                 client.DownloadStringCompleted += downloadStringCompleted;
                 client.DownloadStringAsync(uri);
@@ -56,7 +59,7 @@ namespace Utility.Methods
         /// </summary>
         /// <param name="inputUri">The URI of the source you want to post to</param>
         /// <param name="clientfunction">A higher-order function/delegate that specifies the behavior of the helper method</param>
-        private static void PostHelper(string inputUri, Action<WebClient, Uri> clientfunction)
+        private static void RequestHelper(string inputUri, Action<WebClient, Uri> clientfunction)
         {
             var client = new WebClient();
             client.Headers[HttpRequestHeader.ContentType] = APPLICATION_JSON;
@@ -71,7 +74,7 @@ namespace Utility.Methods
         /// <param name="jsonInput">The JSON object string to be sent to the receiver</param>
         public static void Post(this string inputUri, string jsonInput)
         {
-            PostHelper(inputUri, (client, uri) => client.UploadString(uri, "POST", jsonInput));
+            RequestHelper(inputUri, (client, uri) => client.UploadString(uri, REQUEST_POST, jsonInput));
         }
 
         /// <summary>
@@ -81,7 +84,7 @@ namespace Utility.Methods
         /// <param name="jsonInput">The JSON object string to be sent to the receiver</param>
         public static void PostAsync(this string inputUri, string jsonInput)
         {
-            PostHelper(inputUri, (client, uri) => client.UploadStringAsync(uri, "POST", jsonInput));
+            RequestHelper(inputUri, (client, uri) => client.UploadStringAsync(uri, REQUEST_POST, jsonInput));
         }
 
         /// <summary>
@@ -109,11 +112,31 @@ namespace Utility.Methods
         }
 
         /// <summary>
+        /// Deletes data to a receiver specified by the input URI
+        /// </summary>
+        /// <param name="inputUri">The URI of the receiver</param>
+        /// <param name="jsonInput">The JSON object string to be sent to the receiver</param>
+        public static void Delete(this string inputUri)
+        {
+            RequestHelper(inputUri, (client, uri) => client.UploadString(uri, REQUEST_DELETE, ""));
+        }
+
+        /// <summary>
+        /// Deletes data to a receiver specified by the input URI asynchronously
+        /// </summary>
+        /// <param name="inputUri">The URI of the receiver</param>
+        /// <param name="jsonInput">The JSON object string to be sent to the receiver</param>
+        public static void DeleteAsync(this string inputUri)
+        {
+            RequestHelper(inputUri, (client, uri) => client.UploadStringAsync(uri, REQUEST_DELETE, ""));
+        }
+
+        /// <summary>
         /// A Helper method to remove boilerplate code, it does all the actual conversion.
         /// </summary>
         /// <param name="inputUri">A string representing the uri of whatever you want to get data from</param>
         /// <param name="clientfunction">An higher-order function/delegate that allows us to specify the behavior of the method</param>
-        private static void GetHelper(Action<WebClient> clientfunction)
+        private static void ResponseHelper(Action<WebClient> clientfunction)
         {
             var client = new WebClient();
             client.Headers[HttpResponseHeader.ContentType] = APPLICATION_JSON;
@@ -128,7 +151,7 @@ namespace Utility.Methods
         public static string Get(this Uri inputUri)
         {
             string result = "";
-            GetHelper(client => result = client.DownloadString(inputUri));
+            ResponseHelper(client => result = client.DownloadString(inputUri));
             return result;
         }
 
@@ -139,7 +162,7 @@ namespace Utility.Methods
         /// <param name="downloadStringCompleted">The event hander the downloaded string will be sent to</param>
         public static void GetAsync(this Uri inputUri, DownloadStringCompletedEventHandler downloadStringCompleted)
         {
-            GetHelper(client =>
+            ResponseHelper(client =>
             {
                 client.DownloadStringCompleted += downloadStringCompleted;
                 client.DownloadStringAsync(inputUri);
@@ -151,7 +174,7 @@ namespace Utility.Methods
         /// </summary>
         /// <param name="inputUri">The URI of the source you want to post to</param>
         /// <param name="clientfunction">A higher-order function/delegate that specifies the behavior of the helper method</param>
-        private static void PostHelper(Action<WebClient> clientfunction)
+        private static void RequestHelper(Action<WebClient> clientfunction)
         {
             var client = new WebClient();
             client.Headers[HttpRequestHeader.ContentType] = APPLICATION_JSON;
@@ -165,7 +188,7 @@ namespace Utility.Methods
         /// <param name="jsonInput">The JSON object string to be sent to the receiver</param>
         public static void Post(this Uri inputUri, string jsonInput)
         {
-            PostHelper(client => client.UploadString(inputUri, "POST", jsonInput));
+            RequestHelper(client => client.UploadString(inputUri, "POST", jsonInput));
         }
 
         /// <summary>
@@ -175,7 +198,7 @@ namespace Utility.Methods
         /// <param name="jsonInput">The JSON object string to be sent to the receiver</param>
         public static void PostAsync(this Uri inputUri, string jsonInput)
         {
-            PostHelper(client => client.UploadStringAsync(inputUri, "POST", jsonInput));
+            RequestHelper(client => client.UploadStringAsync(inputUri, "POST", jsonInput));
         }
 
         /// <summary>
@@ -200,6 +223,26 @@ namespace Utility.Methods
         {
             var json = new JavaScriptSerializer().Serialize(obj);
             inputUri.PostAsync(json);
+        }
+
+        /// <summary>
+        /// Deletes data to a receiver specified by the input URI
+        /// </summary>
+        /// <param name="inputUri">The URI of the receiver</param>
+        /// <param name="jsonInput">The JSON object string to be sent to the receiver</param>
+        public static void Delete(this Uri inputUri, string jsonInput)
+        {
+            RequestHelper(client => client.UploadString(inputUri, "DELETE", ""));
+        }
+
+        /// <summary>
+        /// Deletes data to a receiver specified by the input URI asynchronously
+        /// </summary>
+        /// <param name="inputUri">The URI of the receiver</param>
+        /// <param name="jsonInput">The JSON object string to be sent to the receiver</param>
+        public static void DeleteAsync(this Uri inputUri)
+        {
+            RequestHelper(client => client.UploadStringAsync(inputUri, "DELETE", ""));
         }
     }
 }
