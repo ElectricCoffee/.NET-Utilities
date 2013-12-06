@@ -243,7 +243,7 @@ namespace Utility.Methods
         /// <typeparam name="T">Any object type</typeparam>
         /// <param name="inputUri">The URI of the receiver</param>
         /// <param name="obj">The object to be sent to the receiver as json</param>
-        public static void Post<T>(this Uri inputUri, T obj)
+        public static void PostAsync<T>(this Uri inputUri, T obj)
         {
             var json = new JavaScriptSerializer().Serialize(obj);
             inputUri.PostAsync(json);

@@ -9,15 +9,15 @@ namespace Utility.Classes
     /// <summary>
     /// The type of option
     /// </summary>
-    enum OptType { Some, None };
+    public enum OptType { Some, None };
 
     /// <summary>
     /// Base class that holds the information about which type is used
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    abstract class Option<T>
+    public abstract class Option<T>
     {
-        private readonly OptType _tag;
+        protected readonly OptType _tag;
 
         protected Option(OptType tag)
         {
@@ -48,7 +48,7 @@ namespace Utility.Classes
         }
     }
 
-    class None<T> : Option<T> 
+    public class None<T> : Option<T> 
     {
         /// <summary>
         /// Empty constructor; None shouldn't contain anything
@@ -56,7 +56,7 @@ namespace Utility.Classes
         public None() : base(OptType.None) { }
     }
 
-    class Some<T> : Option<T>
+    public class Some<T> : Option<T>
     {
         private readonly T _value;
 
