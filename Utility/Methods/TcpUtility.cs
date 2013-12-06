@@ -11,7 +11,7 @@ namespace Utility.Methods
 {
     static class TcpUtility
     {
-        public static void Connect(TcpClient connection, string ip, int port, out SocketException ex)
+        public static void Connect(this TcpClient connection, string ip, int port, out SocketException ex)
         {
             ex = null;
 

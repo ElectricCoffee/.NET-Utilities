@@ -136,7 +136,8 @@ namespace Utility.Methods
         {
             switch (hash)
             {
-                // MD5 not available
+                case HashType.MD5:
+                    throw new InvalidOperationException();
                 case HashType.SHA1:
                     return SHA1.Create(BASE_SHA1 + TYPE_MANAGED);
                 case HashType.SHA256:
